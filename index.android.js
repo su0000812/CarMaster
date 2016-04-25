@@ -8,22 +8,48 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  DrawerLayoutAndroid,
+  DrawerConsts,
+  StatusBar,
 } from 'react-native';
 
+import MainScreen from './mainScreen.js';
+import NavigationView from './navigationView';
+let DRAWER_REF = "drawer";
+let MAINSCREEN_REF　= "main";
+
 class CarMaster extends Component {
+
   render() {
+
+    let navigationView = (
+      <NavigationView
+        style = {{flex: 1}}
+        showItem = {(target: Object) => {
+          this.refs[DRAWER_REF].closeDrawer();
+          this.refs[MAINSCREEN_REF]._showNews(target);
+        }}/>
+    );
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+      <View style={{flex: 1}}>
+        <StatusBar
+          backgroundColor='#3F51B5'
+          translucent={false}
+          hidden={false}
+          animated={true}
+        />
+        <DrawerLayoutAndroid
+          ref = {DRAWER_REF}
+          style = {{flex: 1}}
+          drawerWidth = {300}
+          drawerPosition = {DrawerLayoutAndroid.positions.Left}
+          renderNavigationView = {() => navigationView}>
+
+          <MainScreen style = {{flex: 1}}
+            ref = {MAINSCREEN_REF}
+            open = {() => this.refs[DRAWER_REF].openDrawer()}/>
+        </DrawerLayoutAndroid>
       </View>
     );
   }
