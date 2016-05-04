@@ -1,14 +1,7 @@
 package com.carmaster;
 
 import android.app.Application;
-import android.content.Intent;
-import android.hardware.Camera;
-import android.widget.Toast;
 
-import com.alibaba.sdk.android.AlibabaSDK;
-import com.alibaba.sdk.android.callback.InitResultCallback;
-import com.duanqu.qupai.engine.session.VideoSessionCreateInfo;
-import com.duanqu.qupai.sdk.android.QupaiService;
 
 /**
  * Created by JSu on 2016/4/22.

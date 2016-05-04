@@ -13,23 +13,24 @@ import java.util.List;
 
 public class VectorIconsPackage implements ReactPackage {
 
-  public VectorIconsPackage() {}
+    public VectorIconsPackage() {
+    }
 
-  @Override
-  public List<NativeModule> createNativeModules(
-      ReactApplicationContext reactContext) {
-    List<NativeModule> modules = new ArrayList<>();
-    modules.add(new VectorIconsModule(reactContext));
-    return modules;
-  }
+    @Override
+    public List<NativeModule> createNativeModules(
+            ReactApplicationContext reactContext) {
+        List<NativeModule> modules = new ArrayList<>();
+        modules.add(new VectorIconsModule(reactContext));
+        return modules;
+    }
 
-  @Override
-  public List<Class<? extends JavaScriptModule>> createJSModules() {
-    return Collections.emptyList();
-  }
+    @Override
+    public List<Class<? extends JavaScriptModule>> createJSModules() {
+        return Collections.emptyList();
+    }
 
-  @Override
-  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-    return Collections.emptyList();
-  }
+    @Override
+    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+        return Collections.emptyList();
+    }
 }

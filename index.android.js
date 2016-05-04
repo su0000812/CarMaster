@@ -9,51 +9,65 @@ import React, {
   StyleSheet,
   Text,
   View,
-  DrawerLayoutAndroid,
-  DrawerConsts,
   StatusBar,
+  Navigator,
+  BackAndroid,
 } from 'react-native';
 
-import MainScreen from './mainScreen.js';
-import NavigationView from './navigationView';
-let DRAWER_REF = "drawer";
-let MAINSCREEN_REF　= "main";
+window.main_navigator;
+import Home from './home';
+import SearchMain from './app/search/searchMain';
+import MessageMain from './app/message/messageMain';
+import SettingMain from './app/settings/settingsMain';
 
 class CarMaster extends Component {
 
   render() {
+    let initialRoute = {id: 0, name: "home",title: "主页"};
 
-    let navigationView = (
-      <NavigationView
-        style = {{flex: 1}}
-        showItem = {(target: Object) => {
-          this.refs[DRAWER_REF].closeDrawer();
-          this.refs[MAINSCREEN_REF]._showNews(target);
-        }}/>
-    );
     return (
       <View style={{flex: 1}}>
         <StatusBar
           backgroundColor='#3F51B5'
           translucent={false}
           hidden={false}
-          animated={true}
-        />
-        <DrawerLayoutAndroid
-          ref = {DRAWER_REF}
-          style = {{flex: 1}}
-          drawerWidth = {300}
-          drawerPosition = {DrawerLayoutAndroid.positions.Left}
-          renderNavigationView = {() => navigationView}>
-
-          <MainScreen style = {{flex: 1}}
-            ref = {MAINSCREEN_REF}
-            open = {() => this.refs[DRAWER_REF].openDrawer()}/>
-        </DrawerLayoutAndroid>
+          animated={true} />
+        <Navigator
+          initialRoute={initialRoute}
+          configureScene={(route) => {
+            return Navigator.SceneConfigs.FadeAndroid;
+          }}
+          renderScene={(route,navigation) => {
+            main_navigator = navigation;
+            if(route.name === 'home'){
+              return (<Home
+                style = {{flex: 1}}
+                showView = {(target) => this._showView(target)}/>);
+            }else if(route.name === 'search'){
+              return (<SearchMain style = {{flex: 1}}/>);
+            }else if(route.name === 'message'){
+              return (<MessageMain style = {{flex: 1}}/>);
+            }else if(route.name === 'setting'){
+              return (<SettingMain style = {{flex: 1}}/>);
+            }
+          }}
+          />
       </View>
     );
   }
+
+  _showView(target: Object) {
+    window.main_navigator.push(target);
+  }
 }
+
+BackAndroid.addEventListener('hardwareBackPress',function(){
+  if(main_navigator && main_navigator.getCurrentRoutes().length > 1){
+    main_navigator.pop();
+    return true;
+  }
+  return false;
+});
 
 const styles = StyleSheet.create({
   container: {

@@ -14,39 +14,65 @@ class NavigationView extends Component{
   constructor(props){
     super(props);
     this.state = {
-      userIcon: null,
+      userIcon: require('./avatar.jpg'),
     };
-    //require('./ic_search_white_18dp.png')
-    // Icon.getImageSource('user', 20, 'red').then((source) => this.setState({ userIcon: source }));
   }
 
   render(){
     return (
         <View style = {{flex: 1, backgroundColor: '#fff'}}>
           <View style = {styles.header}>
-
-            <Image source={{uri: this.state.userIcon}}/>
+            <View style = {{flexDirection: 'row'}}>
+              <View style = {{flex: 1}}>
+                <Image
+                  style = {styles.avatar}
+                  source = {this.state.userIcon}/>
+              </View>
+              <Image
+                style = {{width: 25, height: 25, marginRight: 15, marginTop: 10}}
+                source = {require('./ic_exit_to_app_white_18dp.png')}/>
+            </View>
+            <View style = {styles.idWrapper}>
+              <Text
+                style = {styles.id}>
+                ID : Funny
+              </Text>
+              <Text style = {styles.sign}>
+                Sign : Funny
+              </Text>
+            </View>
           </View>
-          <Icon name="person" size={30} color="#4F8EF7" />
           <TouchableNativeFeedback
-            onPress={() => this.props.showItem({id: 0, title: "今日推荐",name: "home_recommend"})}>
+            onPress={() => this.__showItem({id: 0, title: "今日推荐",name: "home_recommend"})}>
             <View>
-              <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>
+              <Text style = {styles.itemText}>
                 今日推荐
               </Text>
             </View>
           </TouchableNativeFeedback>
           <TouchableNativeFeedback
-            onPress={() => this.props.showItem({id: 1, title: "资讯",name: "home_news"})}>
+            onPress={() => this.__showItem({id: 1, title: "资讯",name: "home_news"})}>
             <View>
-              <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>
+              <Text style = {styles.itemText}>
                 资讯
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback
+            onPress={() => this.__showItem({id: 2, title: "商城",name: "home_market"})}>
+            <View>
+              <Text style = {styles.itemText}>
+                商城
               </Text>
             </View>
           </TouchableNativeFeedback>
         </View>
     );
-  };
+  }
+
+  __showItem(target: Object){
+    this.props.showItem(target);
+  }
 }
 
 const styles = StyleSheet.create({
@@ -58,7 +84,30 @@ const styles = StyleSheet.create({
 
   },
   itemText: {
-
+    margin: 15,
+    fontSize: 17,
+    textAlign: 'left',
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    marginTop: 20,
+    borderRadius: 30,
+    marginLeft: 40,
+  },
+  id: {
+    color: '#ffffff',
+    fontSize: 15,
+  },
+  sign: {
+    color: '#ffffff',
+    fontSize: 15,
+    marginTop: 8,
+  },
+  idWrapper: {
+    flex: 1,
+    marginLeft: 35,
+    marginTop: 15,
   }
 });
 

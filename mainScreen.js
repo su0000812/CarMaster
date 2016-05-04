@@ -24,21 +24,22 @@ class MainScreen extends React.Component{
 
   render(){
 
-    let toolbarActions = [{title: '搜索', icon: require('./ic_search_white_18dp.png'), show: 'always'},
-                          {title: '消息', icon: require('./ic_add_alert_white_18dp.png'), show: 'always'},
-                          {title: '设置', icon: require('./ic_settings_white_18dp.png'), show: 'always'}];
+    let toolbarActions = [{title: '搜索', icon: require('./ic_search_white_18dp_.png'), show: 'always'},
+                          {title: '消息', icon: require('./ic_notifications_none_white_18dp_.png'), show: 'always'},
+                          {title: '设置', icon: require('./ic_settings_white_18dp_.png'), show: 'always'}];
 
     let initialRoute = {id: 0, name: "home_recommend",title: "今日推荐"};
 
     return (
       <View style = {{flex: 1}}>
         <ToolbarAndroid style = {styles.toolbar}
-          navIcon = {require('./ic_menu_white_18dp.png')}
+          navIcon = {require('./ic_menu_white_18dp_.png')}
           actions = {toolbarActions}
           title = {this.state.title}
           titleColor = {'#FFFFFF'}
           backgroundColor = {'#3F51B5'}
-          onIconClicked = {() => this.props.open()}>
+          onIconClicked = {() => this.props.open()}
+          onActionSelected = {(position) => this._showView(position)}>
         </ToolbarAndroid>
         <Navigator
           initialRoute={initialRoute}
@@ -56,6 +57,23 @@ class MainScreen extends React.Component{
           />
       </View>
     );
+  }
+
+  _showView(position: number){
+
+    switch (position) {
+      case 0:
+        this.props.showView({id: 1, title: "搜索", name: "search"});
+        break;
+      case 1:
+        this.props.showView({id: 2, title: "消息", name: "message"});
+        break;
+      case 2:
+        this.props.showView({id: 3, title: "设置", name: "setting"});
+        break;
+      default:
+        break;
+    }
   }
 
   _showNews(target: Object) {
