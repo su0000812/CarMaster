@@ -11,6 +11,7 @@ import React, {
 
 import Recommend from './recommend';
 import News from './news';
+import CarRepair from './app/repair/car_repair.js';
 
 window._navigator;
 
@@ -52,6 +53,8 @@ class MainScreen extends React.Component{
               return (<Recommend style = {{flex: 1}}/>);
             }else if(route.name === 'home_news'){
               return (<News style = {{flex: 1}}/>);
+            }else if(route.name === 'home_repair'){
+              return (<CarRepair style = {{flex: 1}}/>);
             }
           }}
           />

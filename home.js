@@ -8,8 +8,21 @@ import MainScreen from './mainScreen';
 import NavigationView from './navigationView';
 let DRAWER_REF = "drawer";
 let MAINSCREEN_REF　= "main";
+import Storage from 'react-native-storage';
+global.storage = new Storage({
+  size: 1000,
+  defaultExpires: 1000 * 3600 * 24,
+  enableCache: true,
+  sync: {
+
+  }
+})
 
 class Home extends Component{
+
+  constructor(props){
+    super(props);
+  }
 
   render(){
 

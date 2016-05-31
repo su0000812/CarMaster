@@ -15,12 +15,39 @@ class NavigationView extends Component{
     super(props);
     this.state = {
       userIcon: require('./avatar.jpg'),
+      userid : null,
     };
+
+    // storage.clearMapForKey('loginState');
+    // storage.remove({
+    //   key: 'loginState',
+    // }).catch(err => {
+    //   console.log(err);
+    //   // reject();
+    // });
+
+    storage.load({
+      key: 'loginState',
+      autoSync: false,
+      syncInBackground: false
+    }).then(ret => {
+      console.log(ret);
+      this.setState({userid: ret.userid});
+    }).catch((error, reject) => {
+      if(error === undefined){
+        reject;
+      }
+    });
   }
 
-  render(){
-    return (
-        <View style = {{flex: 1, backgroundColor: '#fff'}}>
+  _gotoLogin(){
+    window.main_navigator.push({id: 4, title: "登录注册", name: "login"});
+  }
+
+  headerView(){
+    if(this.state.userid === null){
+      return(
+        <TouchableNativeFeedback onPress={() => this._gotoLogin()}>
           <View style = {styles.header}>
             <View style = {{flexDirection: 'row'}}>
               <View style = {{flex: 1}}>
@@ -28,20 +55,47 @@ class NavigationView extends Component{
                   style = {styles.avatar}
                   source = {this.state.userIcon}/>
               </View>
-              <Image
-                style = {{width: 25, height: 25, marginRight: 15, marginTop: 10}}
-                source = {require('./ic_exit_to_app_white_18dp.png')}/>
             </View>
             <View style = {styles.idWrapper}>
               <Text
                 style = {styles.id}>
-                ID : Funny
-              </Text>
-              <Text style = {styles.sign}>
-                Sign : Funny
+                登录/注册
               </Text>
             </View>
           </View>
+        </TouchableNativeFeedback>
+      );
+    }else{
+      return(
+        <View style = {styles.header}>
+          <View style = {{flexDirection: 'row'}}>
+            <View style = {{flex: 1}}>
+              <Image
+                style = {styles.avatar}
+                source = {this.state.userIcon}/>
+            </View>
+            <Image
+              style = {{width: 25, height: 25, marginRight: 15, marginTop: 10}}
+              source = {require('./ic_exit_to_app_white_18dp.png')}/>
+          </View>
+          <View style = {styles.idWrapper}>
+            <Text
+              style = {styles.id}>
+              ID : Funny
+            </Text>
+            <Text style = {styles.sign}>
+              Sign : Funny
+            </Text>
+          </View>
+        </View>
+      );
+    }
+  }
+
+  render(){
+    return (
+        <View style = {{flex: 1, backgroundColor: '#fff'}}>
+          {this.headerView()}
           <TouchableNativeFeedback
             onPress={() => this.__showItem({id: 0, title: "今日推荐",name: "home_recommend"})}>
             <View>
@@ -63,6 +117,14 @@ class NavigationView extends Component{
             <View>
               <Text style = {styles.itemText}>
                 商城
+              </Text>
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback
+            onPress={() => this.__showItem({id: 3, title: "维修店",name: "home_repair"})}>
+            <View>
+              <Text style = {styles.itemText}>
+                维修店
               </Text>
             </View>
           </TouchableNativeFeedback>

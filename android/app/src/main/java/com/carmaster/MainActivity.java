@@ -2,6 +2,8 @@ package com.carmaster;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.TypedValue;
+import android.widget.TextView;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactPackage;

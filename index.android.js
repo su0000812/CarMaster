@@ -19,6 +19,7 @@ import Home from './home';
 import SearchMain from './app/search/searchMain';
 import MessageMain from './app/message/messageMain';
 import SettingMain from './app/settings/settingsMain';
+import Login from './app/login/loginMain';
 
 class CarMaster extends Component {
 
@@ -49,6 +50,8 @@ class CarMaster extends Component {
               return (<MessageMain style = {{flex: 1}}/>);
             }else if(route.name === 'setting'){
               return (<SettingMain style = {{flex: 1}}/>);
+            }else if(route.name === 'login'){
+              return (<Login style = {{flex: 1}}/>);
             }
           }}
           />
